@@ -6,7 +6,7 @@ This is useful if you have an object with many animations, and you need to conve
 
 ## Installation
 
-* Install PushDownAll.py into your script directory. e.g. "C:\Users\\`yourname`\AppData\Roaming\Blender Foundation\Blender\\`version`\scripts\addons\"
+* Copy the PushDownAll folder into your script directory. e.g. "C:\Users\\`yourname`\AppData\Roaming\Blender Foundation\Blender\\`version`\scripts\addons\"
 
 * In Blender, select Edit, Preferences, Add-ons. Find "Animation: Push Down All" and enable it.
 
