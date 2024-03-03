@@ -1,6 +1,6 @@
 # MIT License
 
-# Copyright (c) 2021 Cory Petkovsek
+# Copyright (c) 2024 Cory Petkovsek
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,8 @@
 import bpy
 import re
 
-
 PROPERTIES = [
-    ('pda_exclude',  bpy.props.StringProperty(name = "Exclude", default="")),
+    ('pda_exclude', bpy.props.StringProperty(name = "Exclude", default="")),
     ('pda_search',  bpy.props.StringProperty(name = "Search", default="")),
     ('pda_replace', bpy.props.StringProperty(name = "Replace", default="")),
 ]
@@ -45,6 +44,7 @@ class PushDownAllOperator(bpy.types.Operator):
     def execute(self, context):
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.area.type = 'DOPESHEET_EDITOR'
+        counter: int = 0
         
         if context.scene.pda_search:
             print("Search query: ", context.scene.pda_search)
@@ -57,12 +57,16 @@ class PushDownAllOperator(bpy.types.Operator):
                     print("Renaming: " + action.name + " -> " + new_name )
                     action.name = new_name
             
-            print("Pushing down: ", action.name)
-            bpy.context.active_object.animation_data.action = action
-            bpy.context.space_data.ui_mode = 'ACTION'
-            bpy.ops.action.push_down()
+            if action.id_root == 'OBJECT':
+                print("Pushing down: ", action.name, " id_root: ", action.id_root)
+                bpy.context.active_object.animation_data.action = action
+                bpy.context.space_data.ui_mode = 'ACTION'
+                bpy.ops.action.push_down()
+                counter += 1
+            else:
+                print("Skipping unlinked action: ", action.name)
 
-        print("Pushed down %d animations." % len(context.scene.animations.data) )
+        print("Pushed down %d animations." % counter )
             
         return {'FINISHED'}
 

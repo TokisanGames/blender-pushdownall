@@ -1,6 +1,6 @@
 # MIT License
 
-# Copyright (c) 2021 Cory Petkovsek
+# Copyright (c) 2024 Cory Petkovsek
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,19 +20,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# Reload module on script reload bpy.ops.script.reload()
+if "bpy" in locals():
+    import importlib
+    importlib.reload(PushDownAll)
+
 bl_info = {
     "name": "Push Down All",
     "author": "Cory Petkovsek",
-    "version": (0, 1),
-    "blender": (2, 80, 0),
+    "version": (0, 2),
+    "blender": (4, 0, 0),
     "location": "Dope Sheet > Action Editor > Sidebar > Push Down All",
     "description": "Automatically 'Pushes Down' all matching animations to NLA tracks.",
     "warning": "",
-    "doc_url": "https://github.com/tinmanjuggernaut/blender-pushdownall",
-    "tracker_url": "https://github.com/tinmanjuggernaut/blender-pushdownall/issues",
+    "doc_url": "https://github.com/TokisanGames/blender-pushdownall",
+    "tracker_url": "https://github.com/TokisanGames/blender-pushdownall/issues",
     "category": "Animation",
 }
 
+# Initial load        
 import bpy
 
 def register():
